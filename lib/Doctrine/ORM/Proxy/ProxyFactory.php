@@ -189,6 +189,13 @@ class ProxyFactory extends AbstractProxyFactory
                 $proxy->__setCloner($cloner);
                 $proxy->__setInitialized(false);
 
+                if (count($identifier) === 1) {
+                    $id = array_shift($identifier);
+                    if (0 === $id) {
+                        return false;
+                    }
+                }
+
                 throw EntityNotFoundException::fromClassNameAndIdentifier(
                     $classMetadata->getName(),
                     $this->identifierFlattener->flattenIdentifier($classMetadata, $identifier)
